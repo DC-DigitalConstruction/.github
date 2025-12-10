@@ -4,7 +4,7 @@
 
 ### Transforming the Built Environment with AI
 
-[![Website](https://img.shields.io/badge/Website-digital--construction.ai-blue?style=for-the-badge)](https://www.digital-construction.ai/)
+[![Website](https://img.shields.io/badge/Website-Visit%20Us-blue?style=for-the-badge)](https://www.digital-construction.ai/)
 [![GitHub](https://img.shields.io/badge/GitHub-DC--DigitalConstruction-181717?style=for-the-badge&logo=github)](https://github.com/DC-DigitalConstruction)
 
 ---
@@ -99,7 +99,7 @@ We're always looking to collaborate with:
 
 **Ready to revolutionize your construction projects?**
 
-[![Visit Our Website](https://img.shields.io/badge/🌐_Visit_Website-digital--construction.ai-0066cc?style=for-the-badge)](https://www.digital-construction.ai/)
+[![Visit Our Website](https://img.shields.io/badge/🌐_Visit_Our_Website-Click%20Here-0066cc?style=for-the-badge)](https://www.digital-construction.ai/)
 
 ---
 
