@@ -1,0 +1,53 @@
+name: Add issues to DC Portfolio
+
+# Auto-adds every new issue in this repository to the DC Portfolio board
+# (org project #11), where the portfolio daily digest picks it up each morning.
+#
+# Repo-agnostic: use it exactly as generated, on the default branch, as
+# .github/workflows/add-to-project.yml. Nothing in it needs editing.
+#
+# One-time prerequisite (org owner): if the org-level PORTFOLIO_APP_CLIENT_ID
+# variable and PORTFOLIO_APP_PRIVATE_KEY secret are shared with "selected
+# repositories" only, add this repository to both access lists under
+# Org settings -> Secrets and variables -> Actions. Until then the job skips.
+#
+# Existing issues are not backfilled - only issues opened, reopened, or
+# transferred after this file lands. Add a pre-existing backlog once by hand:
+#   gh project item-add 11 --owner DC-DigitalConstruction --url <issue-url>
+#
+# Auth: a 1-hour installation token minted per run from the org-owned
+# "DC Portfolio Bot" GitHub App - no human PAT involved.
+
+on:
+  issues:
+    types: [opened, reopened, transferred]
+
+# The steps authenticate with the App installation token, so the workflow's
+# own GITHUB_TOKEN needs no scopes at all.
+permissions: {}
+
+jobs:
+  add-to-project:
+    # Skip (instead of fail) while the App credentials are not configured yet,
+    # and in any repo that copies this file before getting them. Job-level `if`
+    # is evaluated server-side, so an unconfigured repo never allocates a runner.
+    if: vars.PORTFOLIO_APP_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ vars.PORTFOLIO_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PORTFOLIO_APP_PRIVATE_KEY }}
+          owner: DC-DigitalConstruction
+          # Repo-local event workflow: scope the token to this repository only.
+          # Org-level Projects permission still comes from the installation, so
+          # the board write works without granting access to every repo.
+          repositories: ${{ github.repository }}
+          permission-organization-projects: write
+          permission-issues: read
+
+      - uses: actions/add-to-project@5afcf98fcd03f1c2f92c3c83f58ae24323cc57fd # v2.0.0
+        with:
+          project-url: https://github.com/orgs/DC-DigitalConstruction/projects/11
+          github-token: ${{ steps.app-token.outputs.token }}
