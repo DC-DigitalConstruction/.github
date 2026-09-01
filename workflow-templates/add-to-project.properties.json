@@ -1,0 +1,6 @@
+{
+  "name": "Add issues to DC Portfolio",
+  "description": "Auto-adds every new issue in this repository to the DC Portfolio board (org project #11), so the portfolio daily digest picks it up. No editing needed; an org owner may need to grant the repo access to the PORTFOLIO_APP_* credentials.",
+  "iconName": "octicon project",
+  "categories": ["Automation"]
+}
